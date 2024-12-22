@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
+        <div class="justify-content-center">
+          <h1>Добавить изделие</h1>
+        </div>
+        <form th:action="@{/admin/products/create}"
+              th:method="post"
+              th:object="${form}"
+              class="m-md-auto w-50 pb-3">
+          <div class="mb-3">
+            <label class="form-label" for="name">Название</label>
+            <input th:field="*{name}"
+                   th:errorclass="is-invalid"
+                   type="text"
+                   class="form-control text-center"
+                   id="name"/>
+            <small th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}"
+                   class="text-danger">Error message</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="typeProductId">Тип изделия</label>
+            <select th:field="*{typeProductId}" class="form-control" id="typeProductId">
+              <option value="" disabled selected>Выберите изделие</option>
+              <option th:each="typeProduct : ${typesProduct}"
+                      th:value="${typeProduct.id}"
+                      th:text="${typeProduct.name}"></option>
+            </select>
+            <small th:if="${#fields.hasErrors('typeProductId')}"
+                   th:errors="*{typeProductId}"
+                   class="text-danger">Error message</small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="material">Материал</label>
+            <input th:field="*{material}"
+                   th:errorclass="is-invalid"
+                   type="text"
+                   class="form-control text-center"
+                   id="material"/>
+            <small th:if="${#fields.hasErrors('material')}"
+                   th:errors="*{material}"
+                   class="text-danger">Error message</small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="extraCharge">Стоимость</label>
+            <input th:field="*{extraCharge}"
+                   th:errorclass="is-invalid"
+                   type="number"
+                   class="form-control text-center"
+                   id="extraCharge"/>
+            <small th:if="${#fields.hasErrors('extraCharge')}"
+                   th:errors="*{extraCharge}"
+                   class="text-danger">Error message</small>
+          </div>
+          <button type="submit" class="btn btn-secondary">Создать изделие</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

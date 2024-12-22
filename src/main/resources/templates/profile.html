@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+  <div class="container">
+    <h3 class="text-center text-dark mt-5" th:text="${model.base.pageTitle}"></h3>
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <nav>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="/profile" class="nav-link">Профиль</a>
+            </li>
+            <li class="list-group-item">
+              <a href="/profile/orders" class="nav-link">История заказов</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-md-9">
+        <div class="jumbotron text-start rounded pt-3">
+          <div class="mb-3">
+            <p><strong>Фамилия:</strong> <span th:text="${model.lastName}"></span></p>
+            <p><strong>Имя:</strong> <span th:text="${model.name}"></span></p>
+            <p><strong>Телефон:</strong> <span th:text="'+' + ${model.phone}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${model.email}"></span></p>
+            <p><strong>Город:</strong> <span th:text="${model.city}"></span></p>
+            <p><strong>Скидка:</strong> <span th:text="${model.discount}"></span>%</p>
+            <p><strong>Количество заказов:</strong> <span th:text="${model.numOrders}"></span></p>
+          </div>
+          <a href="/profile/edit" class="btn btn-warning">Редактировать</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mb-3">
+      <form th:action="@{/auth/logout}" method="post" onclick="return confirm('Вы уверены, что хотите выйти?');">
+        <button type="submit" class="btn btn-danger">Выйти</button>
+      </form>
+    </div>
+
+  </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

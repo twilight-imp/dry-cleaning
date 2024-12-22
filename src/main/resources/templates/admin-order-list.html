@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mt-4">
+        <h3 class="text-dark" th:text="${model.base.pageTitle}">Заказы</h3>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <div th:replace="fragments/admin-navbar">AdminNavbar</div>
+      </div>
+      <div class="col-md-10">
+        <div class="jumbotron text-start rounded col-md-10 align-self-center pt-3">
+          <div th:if="${not #lists.isEmpty(model.orders)}">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>Пользователь</th>
+                <th>Филиал</th>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th>Сумма</th>
+                <th>Состав</th>
+                <th>Комментарий</th>
+                <th>Оценка</th>
+                <th>Действие</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="order : ${model.orders}">
+                <td th:text="'+' + ${order.user}">Пользователь</td>
+                <td th:text="${order.branch.name} + ', ' + ${order.branch.city} + ', ' + ${order.branch.address}">Филиал</td>
+                <td th:text="${order.date}">Дата</td>
+                <td th:text="${order.orderStatus}">Статус</td>
+                <td th:text="${order.finalPrice}">Стоимость</td>
+                <td>
+                  <ul>
+                    <li th:each="position : ${order.positions}"
+                        th:text="${position.product} + ', ' + ${position.material} + ', ' + ${position.service} + ', ' + ${position.number} + ', ' + ${position.amount} + ' ₽'">Состав</li></ul>
+                </td>
+
+                <td th:text="${order.comment}">Комментарий</td>
+
+                <td th:text="${order.score}">Оценка</td>
+                <td>
+                  <div class="text-center mb-3">
+                    <a th:if="${order.orderStatus != 'Завершен'}"
+                       th:href="@{/admin/orders/edit(id=${order.id})}"
+                       class="btn btn-primary btn-sm me-1">Редактировать</a>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

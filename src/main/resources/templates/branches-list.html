@@ -1,0 +1,44 @@
+<!--branches-list.html-->
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-start rounded col-md-8 align-self-center pt-5">
+                <h3 class="text-center text-dark" th:text="${model.base.pageTitle}">Филиалы</h3>
+                <div th:if="${not #lists.isEmpty(model.branches)}">
+                    <div th:each="branch : ${model.branches}"
+                         class="d-flex flex-column bg-light mb-3 p-3 border rounded">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 th:text="${branch.name}">Название</h4>
+
+                            <h4 th:text="'Рейтинг: ' + ${branch.rating}" class="ml-auto"></h4>
+
+                        </div>
+                        <p th:text="'Город: ' + ${branch.city}">Город</p>
+                        <p th:text="'Адрес: ' + ${branch.address}">Адрес</p>
+                        <p th:text="'Телефон: +' + ${branch.phone}">Телефон</p>
+                        <div th:if="${not #lists.isEmpty(branch.reviews)}">
+                            <h5>Отзывы:</h5>
+                            <ul>
+                                <li th:each="review : ${branch.reviews}">
+                                    <p class="mb-0"><strong th:text="${review.nameUser} ">Пользователь</strong></p>
+                                    <p class="mb-0"><span th:text="'Оценка: ' + ${review.score}"></span></p>
+                                    <p><span th:text="${review.comment}"></span></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

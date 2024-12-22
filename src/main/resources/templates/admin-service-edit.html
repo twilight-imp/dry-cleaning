@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>Редактировать услугу</h1>
+                </div>
+                <form th:action="@{/admin/services/edit(id=${id})}"
+                      th:method="post"
+                      th:object="${form}"
+                      class="m-md-auto w-50 pb-3">
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Название</label>
+                        <input th:field="*{name}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="name"/>
+                        <small th:if="${#fields.hasErrors('name')}"
+                               th:errors="*{name}"
+                               class="text-danger">Error message</small>
+                    </div>
+                    <label class="form-label" for="description">Описание</label>
+                    <textarea th:field="*{description}"
+                              th:errorclass="is-invalid"
+                              class="form-control text-center"
+                              id="description"
+                              required="required"></textarea>
+                    <small th:if="${#fields.hasErrors('description')}"
+                           th:errors="*{description}"
+                           class="text-danger">Error message</small>
+                    <div class="mb-3">
+                        <label class="form-label" for="cost">Стоимость</label>
+                        <input th:field="*{cost}"
+                               th:errorclass="is-invalid"
+                               type="number"
+                               class="form-control text-center"
+                               id="cost"/>
+                        <small th:if="${#fields.hasErrors('cost')}"
+                               th:errors="*{cost}"
+                               class="text-danger">Error message</small>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Обновить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

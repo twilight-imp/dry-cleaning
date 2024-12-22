@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="jumbotron text-start rounded col-md-8 align-self-center pt-5">
+        <h3 class="text-center text-dark" th:text="${model.base.pageTitle}">Изделия</h3>
+        <div th:if="${not #lists.isEmpty(model.products)}">
+          <div th:each="product : ${model.products}"
+               class="d-flex flex-column bg-light mb-3 p-3 border rounded">
+            <h4 th:text="${product.name}">Название</h4>
+            <p th:text="'Тип изделия: ' +${product.typeProduct}">Тип изделия</p>
+            <p th:text="'Материал: ' + ${product.material}">Материал</p>
+            <p th:text="'Стоимость: ' +${product.extraCharge} + ' ₽'">Стоимость</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

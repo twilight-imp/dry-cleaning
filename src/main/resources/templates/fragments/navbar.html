@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg bg-light" xmlns:th="http://www.w3.org/1999/xhtml"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <span class="h4">EasyClean</span>
+        </a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-item nav-link text-dark" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item nav-link text-dark" href="/services">Услуги</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item nav-link text-dark" href="/products">Изделия</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-item nav-link text-dark" href="/branches">Филиалы</a>
+            </li>
+
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-item nav-link text-dark" href="/profile">Профиль</a>
+            </li>
+
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-item nav-link text-dark" href="/user/order">Заказ</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-item nav-link text-dark" href="/auth/login">Авторизация</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                <a class="nav-item nav-link text-dark" href="/admin/branches">Управление</a>
+            </li>
+
+
+        </ul>
+    </div>
+    </div>
+</nav>
